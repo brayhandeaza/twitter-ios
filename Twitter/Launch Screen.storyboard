@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TwitterLogoBlue" translatesAutoresizingMaskIntoConstraints="NO" id="nIf-59-ReH">
-                                <rect key="frame" x="10.5" y="121" width="354" height="425"/>
+                                <rect key="frame" x="60" y="182" width="254" height="303"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="354" id="CWR-OV-eDK"/>
-                                    <constraint firstAttribute="height" constant="425" id="WG8-H4-nLR"/>
+                                    <constraint firstAttribute="width" constant="254" id="CWR-OV-eDK"/>
+                                    <constraint firstAttribute="height" constant="303" id="WG8-H4-nLR"/>
                                 </constraints>
                             </imageView>
                         </subviews>

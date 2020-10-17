@@ -19,7 +19,14 @@ class HomeTableViewController: UITableViewController {
         super.viewDidLoad()
         loadTweets(moreTweet: false)
         refresh.addTarget(self, action: #selector(loadTweets), for: .valueChanged)
-        tableView.refreshControl = refresh
+        
+        self.tableView.refreshControl = refresh
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = 150
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadTweets(moreTweet: false)
     }
 
     @objc func loadTweets(moreTweet: Bool) {
@@ -55,6 +62,7 @@ class HomeTableViewController: UITableViewController {
         if indexPath.row + 1 == tweetsArray.count {
             loadTweets(moreTweet: true)
         }
+    
     }
     
     @IBAction func onLogout(_ sender: Any) {
@@ -65,18 +73,31 @@ class HomeTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        let tweets = tweetsArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! tweetCell
-        let user =  tweetsArray[indexPath.row]["user"] as! NSDictionary
+        let user =  tweets["user"] as! NSDictionary
         let imageURL = URL(string: (user["profile_image_url_https"] as? String)!)
         let data = try? Data(contentsOf: imageURL!)
+       
         
         if let imageData = data  {
+            cell.profileImage.layer.borderWidth = 1.0
+            cell.profileImage.layer.borderColor = UIColor.white.cgColor
+            cell.profileImage.layer.masksToBounds = true
+            cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.height / 2
+            cell.profileImage.clipsToBounds = true
             cell.profileImage.image = UIImage(data: imageData)
         }
         
         cell.profileName.text = user["name"] as? String
         cell.tweetContent.text = tweetsArray[indexPath.row]["text"] as? String
+        cell.setFavorite((tweetsArray[indexPath.row]["favorited"] as? Bool)!)
+        cell.setRetweeted((tweets["retweeted"] as? Bool)!)
+        
+        cell.tweetId = tweets["id"] as! Int
+        
+        cell.favorited = (tweets["favorited"] as? Bool)!
+        cell.retweeted = (tweets["retweeted"] as? Bool)!
         
         return cell
     }
