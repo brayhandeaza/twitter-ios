@@ -26,34 +26,28 @@ class tweetCell: UITableViewCell {
         if (toBeFavorite) {
             TwitterAPICaller.client?.favoriteTweet(tweetId: tweetId, success: {
                 self.setFavorite(true)
+                
             }, failure: { (error) in
                 print("Favorite did not success: \(error)")
+                
             })
         } else {
             TwitterAPICaller.client?.unFavoriteTweet(tweetId: tweetId, success: {
                 self.setFavorite(false)
             }, failure: { (error) in
                 print("Unfavorite did not success: \(error)")
+                
             })
         }
     }
     
     @IBAction func retweetButton(_ sender: Any) {
-        let toBeRetweet = !retweeted
-        
-        if (toBeRetweet) {
-            TwitterAPICaller.client?.retweet(tweetId: tweetId, success: {
-                self.setRetweeted(true)
-            }, failure: { (error) in
-                print("Retweet did not success: \(error)")
-            })
-        } else {
-            TwitterAPICaller.client?.retweet(tweetId: tweetId, success: {
-                self.setRetweeted(false)
-            }, failure: { (error) in
-                print("Unretweet did not success: \(error)")
-            })
-        }
+        TwitterAPICaller.client?.retweet(tweetId: tweetId, success: {
+            print(true)
+            self.setRetweeted(true)
+        }, failure: { (error) in
+            print("Retweet did not success: \(error)")
+        })
     }
     
     func setFavorite(_ isFavorite:Bool) {
@@ -69,11 +63,11 @@ class tweetCell: UITableViewCell {
           
         if (isRetweeted) {
             retweetButton.setImage(UIImage(named: "retweet-icon-green"), for: UIControl.State.normal)
-//            retweetButton.isEnabled = false
+            retweetButton.isEnabled = false
 
         } else {
             retweetButton.setImage(UIImage(named: "retweet-icon"), for: UIControl.State.normal)
-//            retweetButton.isEnabled = true
+            retweetButton.isEnabled = true
         }
     }
     

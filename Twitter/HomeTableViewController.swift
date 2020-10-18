@@ -35,7 +35,6 @@ class HomeTableViewController: UITableViewController {
             
         } else {
             numberOfTweet = numberOfTweet + 20
-            
         }
         
         let myParams = ["count": numberOfTweet]
@@ -91,14 +90,13 @@ class HomeTableViewController: UITableViewController {
         
         cell.profileName.text = user["name"] as? String
         cell.tweetContent.text = tweetsArray[indexPath.row]["text"] as? String
-        cell.setFavorite((tweetsArray[indexPath.row]["favorited"] as? Bool)!)
-        cell.setRetweeted((tweets["retweeted"] as? Bool)!)
-        
         cell.tweetId = tweets["id"] as! Int
         
+        cell.setFavorite((tweetsArray[indexPath.row]["favorited"] as? Bool)!)
         cell.favorited = (tweets["favorited"] as? Bool)!
+        cell.setRetweeted((tweetsArray[indexPath.row]["retweeted"] as? Bool)!)
         cell.retweeted = (tweets["retweeted"] as? Bool)!
-        
+
         return cell
     }
     
